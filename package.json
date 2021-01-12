@@ -1,0 +1,17 @@
+{
+  "name": "remote-cmd",
+  "version": "1.0.0",
+  "main": "index.js",
+  "author": "linghaoSu",
+  "license": "MIT",
+  "dependencies": {
+    "axios": "^0.21.1",
+    "express": "^4.17.1"
+  },
+  "scripts": {
+    "server": "pm2 start ./src/server/index.js",
+    "receiver": "pm2 start ./src/receiver/index.js",
+    "re": "yarn run receiver",
+    "sr": "yarn run server"
+  }
+}
