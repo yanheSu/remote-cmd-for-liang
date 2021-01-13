@@ -11,7 +11,7 @@ function customTask(cmd, params) {
       }
     })
     let execStr = cmd[0] + param;
-    const rst = process.execSync(execStr).toString();
+    const rst = process.execSync(execStr, { encoding: 'utf8' }).toString();
     console.log(rst);
     newRequest('/ping', 'post', {}, {result: rst});
   } catch (e) {

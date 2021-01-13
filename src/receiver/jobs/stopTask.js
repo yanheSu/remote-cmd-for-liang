@@ -27,7 +27,7 @@ function stop(app) {
 function killTask(taskId) {
   try {
     console.log(taskId);
-    const rst = process.execSync('TASKKILL /PID ' + taskId + ' /F');
+    const rst = process.execSync('TASKKILL /PID ' + taskId + ' /F', { encoding: 'utf8' });
     console.log(rst.toString());
   } catch (e) {
     console.log(e);

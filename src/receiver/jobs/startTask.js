@@ -11,7 +11,7 @@ function start(app) {
   if (cmd) {
     const execStr = 'sh ' + cmd;
     try {
-      process.execSync(execStr);
+      process.execSync(execStr, { encoding: 'utf8' });
     } catch (e) {
       console.log(e);
     }
