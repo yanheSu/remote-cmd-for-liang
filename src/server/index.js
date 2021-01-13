@@ -20,7 +20,7 @@ app.use('/consume-job', (req, res) => {
   if (job) {
     res.status(200).send(job);
   }
-  res.status(204).send();
+  res.status(204).end();
 });
 
 app.listen(port, (req) => {

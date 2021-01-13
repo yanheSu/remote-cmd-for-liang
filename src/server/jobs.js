@@ -7,8 +7,7 @@ function createJob(jobsName) {
 function consumeJob() {
   const len = _jobs.length;
   if (len) {
-    const job = _jobs[len - 1];
-    _jobs.length = len - 1;
+    const job = _jobs.shift();
     return job;
   }
   return false;

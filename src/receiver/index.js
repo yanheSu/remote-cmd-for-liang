@@ -1,6 +1,8 @@
 // const server = '47.104.215.68';
 const { default: axios } = require('axios');
 const { port } = require('../config');
+const startTask = require('./jobs/startTask');
+const stopTask = require('./jobs/stopTask');
 let serverAddress = '47.104.215.68';
 
 console.log(process.argv);
@@ -30,7 +32,21 @@ const newRequest = (url, method = 'get', queryParams = {}, data = {}) =>
 
 async function main() {
   const data = await consumeJob();
-  console.log(data);
+  if (data) {
+    const cmdList = data.split('/');
+    if (cmdList.length) {
+      const cmd = cmdList[0];
+      const cmdArgs = cmdList.slice(1);
+      switch(cmd) {
+        case 'start':
+          startTask(cmdArgs);
+        break;
+        case 'stop':
+          stopTask(cmdArgs);
+        break;
+      }
+    }
+  }
 }
 
 async function checkJob() {
