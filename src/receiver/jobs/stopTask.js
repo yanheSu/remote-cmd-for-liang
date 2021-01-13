@@ -4,10 +4,12 @@ function stop(app) {
   const list = getTaskList();
   const rst = [];
   list.forEach(item => {
-    const taskName = item[0].toLowerCase();
-    const appName = app.toLowerCase();
-    if (taskName.includes(appName)) {
-      rst.push(item);
+    if (item[0]) {
+      const taskName = item[0].toLowerCase();
+      const appName = app.toLowerCase();
+      if (taskName.includes(appName)) {
+        rst.push(item);
+      }
     }
   });
   const len = rst.length;
@@ -19,7 +21,9 @@ function stop(app) {
 }
 
 function killTask(taskId) {
-  process.exec('TASKKILL /PID ' + taskId);
+  console.log(taskId);
+  const rst = process.execSync('TASKKILL /PID ' + taskId);
+  console.log(rst.toString());
 }
 
 module.exports = stop;
