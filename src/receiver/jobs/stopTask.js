@@ -1,4 +1,5 @@
 const process = require('child_process');
+const iconv = require('iconv-lite');
 const getTaskList = require('./checktask');
 function stop(app) {
   const list = getTaskList();
@@ -27,8 +28,9 @@ function stop(app) {
 function killTask(taskId) {
   try {
     console.log(taskId);
-    const rst = process.execSync('TASKKILL /PID ' + taskId + ' /F', { encoding: 'utf8' });
-    console.log(rst.toString());
+    const rst = process.execSync('TASKKILL /PID ' + taskId + ' /F');
+    const rstStr = iconv.decode(rst, 'cp936');
+    console.log(rstStr);
   } catch (e) {
     console.log(e);
   }

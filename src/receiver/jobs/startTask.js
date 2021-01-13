@@ -1,4 +1,5 @@
 const process = require('child_process');
+const iconv = require('iconv-lite');
 const prefix = 'd:/nodeJS/remote-cmd-for-liang/src/receiver/bat/';
 const appList = {
   team_viewer: prefix + 'team_viewer.sh',
@@ -11,7 +12,9 @@ function start(app) {
   if (cmd) {
     const execStr = 'sh ' + cmd;
     try {
-      process.execSync(execStr, { encoding: 'utf8' });
+      const rst = process.execSync(execStr, { encoding: 'utf8' });
+      const rstStr = iconv.decode(rst, 'cp936');
+      console.log(rstStr);
     } catch (e) {
       console.log(e);
     }

@@ -1,4 +1,5 @@
 const process = require('child_process');
+const iconv = require('iconv-lite');
 const newRequest = require('../request');
 
 function customTask(cmd, params) {
@@ -11,9 +12,10 @@ function customTask(cmd, params) {
       }
     })
     let execStr = cmd[0] + param;
-    const rst = process.execSync(execStr, { encoding: 'utf8' }).toString();
-    console.log(rst);
-    newRequest('/ping', 'post', {}, {result: rst});
+    const rst = process.execSync(execStr);
+    const rstStr = iconv.decode(rst, 'cp936');
+    console.log(rstStr);
+    newRequest('/ping', 'post', {}, {result: rstStr});
   } catch (e) {
     newRequest('/ping', 'post', {}, {result: 'error occuer!' + e});
   }

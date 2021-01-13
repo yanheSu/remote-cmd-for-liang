@@ -1,8 +1,9 @@
+const iconv = require('iconv-lite');
 const process = require('child_process');
 process.execSync('git pull origin main');
 
 function getTaskList() {
-  const taskList = process.execSync('tasklist', { encoding: 'utf8' }).toString();
+  const taskList = iconv.decode(process.execSync('tasklist'), 'cp936');
   const taskArr = taskList.split('\r\n').map(item => item.split(' ').filter(dItem => dItem !== ''));
   return taskArr;
 }
