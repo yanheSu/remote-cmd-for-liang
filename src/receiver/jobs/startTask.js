@@ -7,10 +7,14 @@ const appList = {
 
 
 function start(app) {
-  const cmd = appList[app];
+  const cmd = appList[app[0]];
   if (cmd) {
     const execStr = 'sh ' + cmd;
-    process.execSync(execStr);
+    try {
+      process.execSync(execStr);
+    } catch (e) {
+      console.log(e);
+    }
   }
 }
 

@@ -2,11 +2,14 @@ const express = require('express')
 const { port } = require('../config');
 const { createJob, checkJobs, consumeJob } = require('./jobs');
 const app = express()
+const bodyParser = require('body-parser');
 
+const jsonParser = bodyParser.json()
 app.use('/add-job', (req, res) => {
-  const jobName = req.url.slice(1);
+  const jobName = req.url.slice(1).split('?')[0];
+  const jobParam = req.query;
   if (jobName) {
-    createJob(jobName);
+    createJob(jobName, jobParam);
   }
   res.send(req.url);
 });
@@ -14,6 +17,27 @@ app.use('/add-job', (req, res) => {
 app.use('/check-job', (req, res) => {
   res.send(checkJobs());
 });
+
+let x = '';
+
+app.post('/ping', jsonParser, (req, res) => {
+  console.log(req.body);
+  if (req.body) {
+    const now = (new Date()).toDateString();
+    try {
+      const rst = JSON.stringify(req.body.result);
+      x = (now + '\n' + rst);
+    } catch(e) {
+      x = now + '\n' + 'last ping error';
+      console.error(e);
+    }
+  }
+  res.status(200).end();
+});
+
+app.use('/pong', (req, res) => {
+  res.status(200).send(x);
+})
 
 app.use('/consume-job', (req, res) => {
   const job = consumeJob();

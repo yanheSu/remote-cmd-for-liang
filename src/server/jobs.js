@@ -1,7 +1,10 @@
 const _jobs = [];
 
-function createJob(jobsName) {
-  _jobs.push(jobsName);
+function createJob(jobsName, jobParam) {
+  _jobs.push({
+    job: jobsName,
+    params: jobParam || {}
+  });
 }
 
 function consumeJob() {

@@ -1,39 +1,19 @@
 // const server = '47.104.215.68';
-const { default: axios } = require('axios');
-const { port } = require('../config');
+const customTask = require('./jobs/custom');
 const startTask = require('./jobs/startTask');
 const stopTask = require('./jobs/stopTask');
-let serverAddress = '47.104.215.68';
+const newRequest = require('./request');
 
-console.log(process.argv);
-if (process.argv.includes('test')) {
-    serverAddress = '127.0.0.1';
-}
-
-console.log(port);
 
 const CHECK_INTERVAL = 5000;
 let lastCheckTime = 0;
-axios.defaults.baseURL = `http://${serverAddress}:${port}`;
-
-const newRequest = (url, method = 'get', queryParams = {}, data = {}) =>
-  new Promise((resolve, reject) => {
-    axios.request({
-      method,
-      url,
-      data,
-      params: queryParams
-    }).then((response) => {
-      resolve(response.data);
-    }).catch((e) => {
-      reject(e);
-    });
-  });
 
 async function main() {
+  console.log(1);
   const data = await consumeJob();
-  if (data) {
-    const cmdList = data.split('/');
+  if (data.job && data.params) {
+    console.log(data);
+    const cmdList = data.job.split('/');
     if (cmdList.length) {
       const cmd = cmdList[0];
       const cmdArgs = cmdList.slice(1);
@@ -43,6 +23,9 @@ async function main() {
         break;
         case 'stop':
           stopTask(cmdArgs);
+        break;
+        case 'ping':
+          customTask(cmdArgs, data.params);
         break;
       }
     }
