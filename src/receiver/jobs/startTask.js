@@ -12,7 +12,7 @@ function start(app) {
   if (cmd) {
     const execStr = 'sh ' + cmd;
     try {
-      const rst = process.execSync(execStr, { encoding: 'utf8' });
+      const rst = process.execSync(execStr);
       const rstStr = iconv.decode(rst, 'cp936');
       console.log(rstStr);
     } catch (e) {

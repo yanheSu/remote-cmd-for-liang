@@ -1,1 +1,1 @@
-/c/Users/Public/Desktop/TeamViewer.lnk
+start /c/Users/Public/Desktop/TeamViewer.lnk
