@@ -1,6 +1,7 @@
 const { default: axios } = require('axios');
 const { port } = require('../config');
-let serverAddress = '47.104.215.68';
+const config = require('../.config.js');
+let serverAddress = config.server;
 console.log(process.argv)
 if (process.argv.includes('test')) {
     serverAddress = '127.0.0.1';

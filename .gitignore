@@ -3,3 +3,4 @@ upload.sh
 .env
 .vscode
 node_modules/
+**/.config.js
