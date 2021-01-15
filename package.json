@@ -20,6 +20,7 @@
     "log": "pm2 logs",
     "restart": "pm2 restart 0",
     "save": "pm2 save",
-    "install_service": "pm2-service-install"
+    "install_service": "pm2-service-install",
+    "uninstall_service": "pm2-service-install"
   }
 }
