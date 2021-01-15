@@ -9,7 +9,7 @@ if (process.argv.includes('test')) {
 
 axios.defaults.headers['Content-Type'] = 'application/json';
 
-axios.defaults.baseURL = `http://${serverAddress}:${port}`;
+axios.defaults.baseURL = `http://${serverAddress}:${port}` + config.path;
 
 console.log(axios.defaults.baseURL);
 
