@@ -17,7 +17,7 @@ async function main() {
   } catch (e) {
     throw e;
   }
-  if (data & data.job && data.params) {
+  if (data && data.job && data.params) {
     console.log(data);
     const cmdList = data.job.split('/');
     if (cmdList.length) {
