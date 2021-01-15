@@ -47,18 +47,27 @@ async function login() {
     const browser = await puppeteer.launch();
     const page = await browser.newPage();
     await page.goto('https://www.bilibili.com');
-    setTimeout(() => {
+    setTimeout(async () => {
+      console.log('wait to type username...');
       await page.$eval('input[name=DDDDD]', input => {
+        console.log(input.value);
         input.value = config.username;
       });
-      await page.$eval('input[name=upass]', input => {
-        input.value = config.password;
-      });
-      await page.click('input[name=0MKKey]')
-
-      setTimeout(() => {
-        await browser.close();
+      setTimeout(async () => {
+        console.log('wait to type password...');
+        await page.$eval('input[name=upass]', input => {
+          input.value = config.password;
+        });
+        setTimeout(async () => {
+          console.log('wait to click...');
+          await page.click('input[name=0MKKey]')
+          setTimeout(async () => {
+            console.log('wait to close...');
+            await browser.close();
+          }, 5000);
+        }, 5000);
       }, 5000);
+
     }, 10000);
 
   } catch (e) {
