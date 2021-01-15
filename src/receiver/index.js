@@ -15,7 +15,7 @@ async function main() {
   try {
     data = await consumeJob();
   } catch (e) {
-    throw e;
+    console.error('ah...');
   }
   if (data && data.job && data.params) {
     console.log(data);
