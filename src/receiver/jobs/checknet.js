@@ -1,4 +1,5 @@
 const { default: axios } = require("axios");
+const puppeteer = require('puppeteer');
 const process = require('child_process');
 const iconv = require('iconv-lite');
 
@@ -34,8 +35,19 @@ function changeNet() {
     const rst = process.execSync('netsh wlan connect name=NWUNET');
     const rstStr = iconv.decode(rst, 'cp936');
     console.log(rstStr);
+    login();
   } catch (e) {
     console.error(e);
+  }
+}
+
+async function login() {
+  try {
+    const browser = await puppeteer.launch();
+    const page = await browser.newPage();
+    await page.goto('https://www.bilibili.com');
+  } catch (e) {
+    console.error('login error');
   }
 }
 
