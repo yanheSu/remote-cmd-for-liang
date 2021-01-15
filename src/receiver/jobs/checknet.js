@@ -1,7 +1,8 @@
-const { default: axios } = require("axios");
+const { default: axios } = require('axios');
 const puppeteer = require('puppeteer');
 const process = require('child_process');
 const iconv = require('iconv-lite');
+const config = require('../../.config.js');
 
 const NET_CHECK_TIMES = 10;
 const NET_CHECK_INTERVAL = 3000;
@@ -46,6 +47,13 @@ async function login() {
     const browser = await puppeteer.launch();
     const page = await browser.newPage();
     await page.goto('https://www.bilibili.com');
+    await page.$eval('input[name=DDDDD]', input => {
+      input.value = config.username;
+    });
+    await page.$eval('input[name=upass]', input => {
+      input.value = config.password;
+    });
+    await page.click('input[name=0MKKey]')
   } catch (e) {
     console.error('login error');
   }
