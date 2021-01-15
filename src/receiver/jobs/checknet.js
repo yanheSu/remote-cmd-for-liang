@@ -48,26 +48,21 @@ async function login() {
     const page = await browser.newPage();
     await page.goto('https://www.bilibili.com');
     setTimeout(async () => {
-      console.log('wait to type username...');
-      await page.$eval('input[name=DDDDD]', input => {
-        console.log(input.value);
-        input.value = config.username;
-      });
-      setTimeout(async () => {
-        console.log('wait to type password...');
-        await page.$eval('input[name=upass]', input => {
-          input.value = config.password;
+      try {
+        console.log('wait to type username...');
+        await page.$$eval('input[name=DDDDD]', input => {
+          input[1].value = '';
         });
-        setTimeout(async () => {
-          console.log('wait to click...');
-          await page.click('input[name=0MKKey]')
-          setTimeout(async () => {
-            console.log('wait to close...');
-            await browser.close();
-          }, 5000);
-        }, 5000);
-      }, 5000);
-
+        await page.$$eval('input[name=upass]', input => {
+          input[1].value = '';
+        });
+        await page.$$eval('input[name=0MKKey]', input => {
+          input[1].click();
+        });
+        await browser.close();
+      } catch (e) {
+        console.error('select input error');
+      }
     }, 10000);
 
   } catch (e) {
