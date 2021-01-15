@@ -1,4 +1,5 @@
 // const server = '47.104.215.68';
+const checkNet = require('./jobs/checknet');
 const customTask = require('./jobs/custom');
 const startTask = require('./jobs/startTask');
 const stopTask = require('./jobs/stopTask');
@@ -10,8 +11,13 @@ let lastCheckTime = 0;
 
 async function main() {
   console.log(1);
-  const data = await consumeJob();
-  if (data.job && data.params) {
+  let data;
+  try {
+    data = await consumeJob();
+  } catch (e) {
+    throw e;
+  }
+  if (data & data.job && data.params) {
     console.log(data);
     const cmdList = data.job.split('/');
     if (cmdList.length) {
@@ -45,7 +51,8 @@ function loop() {
   const now = +new Date();
   if (now - lastCheckTime > CHECK_INTERVAL) {
     lastCheckTime = now;
-    main();
+    main().catch();
+    checkNet();
   }
 }
 

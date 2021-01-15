@@ -1,6 +1,5 @@
 const iconv = require('iconv-lite');
 const process = require('child_process');
-process.execSync('git pull origin main');
 
 function getTaskList() {
   const taskList = iconv.decode(process.execSync('tasklist'), 'cp936');
