@@ -1,4 +1,3 @@
-// const server = '47.104.215.68';
 const checkNet = require('./jobs/checknet');
 const customTask = require('./jobs/custom');
 const startTask = require('./jobs/startTask');
