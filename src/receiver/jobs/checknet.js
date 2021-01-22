@@ -60,12 +60,12 @@ async function login() {
     setTimeout(async () => {
       try {
         console.log('wait to type username...');
-        await page.$$eval('input[name=DDDDD]', input => {
-          input[1].value = config.username;
-        });
-        await page.$$eval('input[name=upass]', input => {
-          input[1].value = config.password;
-        });
+        await page.$$eval('input[name=DDDDD]', (input, value) => {
+          input[1].value = value;
+        }, config.username);
+        await page.$$eval('input[name=upass]', (input, value) => {
+          input[1].value = value;
+        }, config.password);
         try {
           // 西大限定 登陆按钮位置
           await page.mouse.click(704, 387);
