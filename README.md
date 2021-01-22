@@ -1,6 +1,20 @@
 # 介绍
 项目分为两个子项目
 
+> 为了最大限度的利用网络资源，在有线网络连接断开后，尝试连接 `wifi`
+>
+> `wifi` 限定名称为 `NWUNET`
+>
+> 如果只需要断网重连那么只需要部署 `receiver` 部分即可
+>
+> 获取全部功能需要自己准备一个云服务器
+>
+> 为了避免 windows 自动更新导致重启，建议将本 `receiver` 部分进程加入系统启动项
+>
+>**搜索关键词**
+>
+>`pm2` `windows/macos/linux` `开机自启`
+
 ## /src/server
 
 服务端
@@ -40,8 +54,8 @@ yarn global add pm2
 module.exports = {
   path: '/path', // 自定义path
   server: '127.0.0.1', // 服务端地址
-  username: 'xxx', // 自动填充用户名
-  password: 'xxx' // 自动填充密码
+  username: 'xxx', // 自动填充 wifi 用户名
+  password: 'xxx' // 自动填充 wifi 密码
 };
 ```
 
@@ -50,7 +64,7 @@ module.exports = {
 ## server
 在服务器上做好前置工作后
 ```
-yarn run sr 
+yarn run sr
 ```
 ## receiver
 在需要的被控制的 PC 上运行以下指令
